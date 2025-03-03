@@ -12,6 +12,7 @@ import {Suspense} from 'react'
 import {Toaster} from 'sonner'
 import {handleError} from './client-functions'
 import {DraftModeToast} from './DraftModeToast'
+import Footer from '@/components/Footer'
 
 export async function generateMetadata(): Promise<Metadata> {
   const [{data: settings}, {data: homePage}] = await Promise.all([
@@ -20,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   ])
 
   const ogImage = urlForOpenGraphImage(
-    // @ts-expect-error - @TODO update @sanity/image-url types so it's compatible
+   // @ts-expect-error - @TODO update @sanity/image-url types so it's compatible
     settings?.ogImage,
   )
   return {
@@ -48,7 +49,9 @@ export default async function IndexRoute({children}: {children: React.ReactNode}
     <head>
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     </head>
+    <Navbar data={data} />
     {children}
+    <Footer data={data} />
       {/* <div className="flex min-h-screen flex-col bg-white text-black">
         <Navbar data={data} />
         <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">{children}</div>

@@ -1,22 +1,18 @@
 'use client'
-import {Header} from '@/components/Header'
+
 import HomeSlider from '@/components/HomeSlider'
-import {OptimisticSortOrder} from '@/components/OptimisticSortOrder'
-import {ProjectListItem} from '@/components/ProjectListItem'
 import type {HomePageQueryResult} from '@/sanity.types'
 import {studioUrl} from '@/sanity/lib/api'
-import {resolveHref} from '@/sanity/lib/utils'
 import {createDataAttribute} from 'next-sanity'
-// import {draftMode} from 'next/headers'
-import Link from 'next/link'
-import { useEffect } from 'react'
-import ScrollReveal from "scrollreveal";
+import {useEffect} from 'react'
+
+//import ScrollReveal from 'scrollreveal'
 
 export interface HomePageProps {
   data: HomePageQueryResult | null
 }
 
-export  function HomePage({data}: HomePageProps) {
+export function HomePage({data}: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
   const {overview = [], showcaseProjects = [], title = ''} = data ?? {}
 
@@ -29,54 +25,58 @@ export  function HomePage({data}: HomePageProps) {
         })
       : null
 
-      useEffect(() => {
-        ScrollReveal({
-          reset: true,
-          distance: "40px",
-          duration: 1200,
-          delay: 30,
-        });
-        
-        // Set up ScrollReveal for various elements
-        ScrollReveal().reveal("main .content h1", { delay: 10, origin: "bottom" });
-        ScrollReveal().reveal("main .content h2", { delay: 30, origin: "bottom" });
-        ScrollReveal().reveal("main .content .buttons", {
-          delay: 50,
-          origin: "bottom",
-        });
-        ScrollReveal().reveal("main .me", {
-          delay: 80,
-          origin: "bottom",
-        });
-        ScrollReveal().reveal(".text-content h2", { delay: 10, origin: "bottom" });
-        ScrollReveal().reveal(".text-content p", { delay: 30, origin: "bottom" });
-        ScrollReveal().reveal("section .social", { delay: 50, origin: "bottom" });
-        ScrollReveal().reveal(".title p", { delay: 20, origin: "bottom" });
-        ScrollReveal().reveal(".title h2", { delay: 80, origin: "bottom" });
-        ScrollReveal().reveal(".title-2 p", { delay: 20, origin: "bottom" });
-        ScrollReveal().reveal(".title-2 h2", { delay: 80, origin: "bottom" });
-        ScrollReveal().reveal(".tag", { delay: 10, origin: "bottom" });
-        ScrollReveal().reveal(".tag-2", { delay: 10, origin: "bottom" });
-        ScrollReveal().reveal(".card", { delay: 20, origin: "bottom" });
-        ScrollReveal().reveal(".card-2", { delay: 20, origin: "bottom" });
-        ScrollReveal().reveal(".grid-2 .card-3", { delay: 20, origin: "bottom" });
-        ScrollReveal().reveal(".item", { delay: 20, origin: "bottom" });
-        ScrollReveal().reveal(".frame", {
-          delay: 10,
-          origin: "bottom",
-          distance: "10px",
-        });
-        ScrollReveal().reveal(".fade", {
-          delay: 10,
-          origin: "bottom",
-          distance: "10px",
-        });
-        ScrollReveal().reveal(".video", {
-          delay: 10,
-          origin: "bottom",
-          distance: "10px",
-        });
-      },[])
+  useEffect(() => {
+    async function animate() {
+      const ScrollReveal = (await import('scrollreveal')).default
+      ScrollReveal({
+        reset: true,
+        distance: '40px',
+        duration: 1200,
+        delay: 30,
+      })
+
+      // Set up ScrollReveal for various elements
+      ScrollReveal().reveal('main .content h1', {delay: 10, origin: 'bottom'})
+      ScrollReveal().reveal('main .content h2', {delay: 30, origin: 'bottom'})
+      ScrollReveal().reveal('main .content .buttons', {
+        delay: 50,
+        origin: 'bottom',
+      })
+      ScrollReveal().reveal('main .me', {
+        delay: 80,
+        origin: 'bottom',
+      })
+      ScrollReveal().reveal('.text-content h2', {delay: 10, origin: 'bottom'})
+      ScrollReveal().reveal('.text-content p', {delay: 30, origin: 'bottom'})
+      ScrollReveal().reveal('section .social', {delay: 50, origin: 'bottom'})
+      ScrollReveal().reveal('.title p', {delay: 20, origin: 'bottom'})
+      ScrollReveal().reveal('.title h2', {delay: 80, origin: 'bottom'})
+      ScrollReveal().reveal('.title-2 p', {delay: 20, origin: 'bottom'})
+      ScrollReveal().reveal('.title-2 h2', {delay: 80, origin: 'bottom'})
+      ScrollReveal().reveal('.tag', {delay: 10, origin: 'bottom'})
+      ScrollReveal().reveal('.tag-2', {delay: 10, origin: 'bottom'})
+      ScrollReveal().reveal('.card', {delay: 20, origin: 'bottom'})
+      ScrollReveal().reveal('.card-2', {delay: 20, origin: 'bottom'})
+      ScrollReveal().reveal('.grid-2 .card-3', {delay: 20, origin: 'bottom'})
+      ScrollReveal().reveal('.item', {delay: 20, origin: 'bottom'})
+      ScrollReveal().reveal('.frame', {
+        delay: 10,
+        origin: 'bottom',
+        distance: '10px',
+      })
+      ScrollReveal().reveal('.fade', {
+        delay: 10,
+        origin: 'bottom',
+        distance: '10px',
+      })
+      ScrollReveal().reveal('.video', {
+        delay: 10,
+        origin: 'bottom',
+        distance: '10px',
+      })
+    }
+    animate()
+  }, [])
   // return (
   //   <div className="space-y-20">
   //     {/* Header */}
@@ -117,35 +117,6 @@ export  function HomePage({data}: HomePageProps) {
   // )
   return (
     <div className="homePage">
-      <header>
-        <div className="container">
-          <div className="menu">
-            <div className="bars">
-              <span />
-              <span />
-              <span />
-            </div>
-          </div>
-          <div className="links">
-            <a href="#">Home</a>
-            <a href="#about">About</a>
-            <a href="#exparience">Experience</a>
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#key">Key Ideas</a>
-          </div>
-          <div className="cta">
-            <a href="#contact">
-              <button>
-                <div className="center">
-                  <i className="ph ph-phone" />
-                  <p>Contact</p> <i className="ph ph-arrow-right" />
-                </div>
-              </button>
-            </a>
-          </div>
-        </div>
-      </header>
       <main>
         <div className="container">
           <div className="content">
@@ -496,27 +467,6 @@ export  function HomePage({data}: HomePageProps) {
           </div>
         </div>
       </section>
-      <footer>
-        <div className="container">
-          <div className="grp">
-            <div className="social">
-              <a href="#">
-                <i className="ph-light ph-facebook-logo" />
-              </a>
-              <a href="#">
-                <i className="ph-light ph-instagram-logo" />
-              </a>
-              <a href="#">
-                <i className="ph-light ph-linkedin-logo" />
-              </a>
-            </div>
-            <p className="fix">© 2025 All right reserved website.com</p>
-          </div>
-          <a className="mail" href="mailto:hello@gmail.com">
-            hello@gmail.com
-          </a>
-        </div>
-      </footer>
     </div>
   )
 }

@@ -7,7 +7,7 @@ import {apiVersion, dataset, projectId, studioUrl} from '@/sanity/lib/api'
 import * as resolve from '@/sanity/plugins/resolve'
 import {pageStructure, singletonPlugin} from '@/sanity/plugins/settings'
 import page from '@/sanity/schemas/documents/page'
-import project from '@/sanity/schemas/documents/project'
+import portfolio from '@/sanity/schemas/documents/project'
 import duration from '@/sanity/schemas/objects/duration'
 import milestone from '@/sanity/schemas/objects/milestone'
 import timeline from '@/sanity/schemas/objects/timeline'
@@ -18,6 +18,7 @@ import {defineConfig} from 'sanity'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {presentationTool} from 'sanity/presentation'
 import {structureTool} from 'sanity/structure'
+import portfolioCategory from './sanity/schemas/documents/projectCategory'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Personal Website with Sanity.io'
@@ -35,8 +36,9 @@ export default defineConfig({
       settings,
       // Documents
       duration,
-      page,
-      project,
+     // page,
+     portfolio,
+     portfolioCategory,
       // Objects
       milestone,
       timeline,

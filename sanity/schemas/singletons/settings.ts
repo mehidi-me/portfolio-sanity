@@ -16,19 +16,42 @@ export default defineType({
       type: 'array',
       of: [
         {
-          title: 'Reference',
-          type: 'reference',
-          to: [
+          type: 'object',
+          name: 'menuItem',
+          title: 'Menu Item',
+          fields: [
             {
-              type: 'home',
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
             },
             {
-              type: 'page',
-            },
-            {
-              type: 'project',
+              name: 'link',
+              title: 'Link',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
             },
           ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'menuMainButton',
+      title: 'Menu Main Button',
+      type: 'object',
+      fields: [
+        {
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'link',
+          title: 'Link',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
         },
       ],
     }),
@@ -36,28 +59,12 @@ export default defineType({
       name: 'footer',
       description: 'This is a block of text that will be displayed at the bottom of the page.',
       title: 'Footer Info',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'block',
-          marks: {
-            annotations: [
-              {
-                name: 'link',
-                type: 'object',
-                title: 'Link',
-                fields: [
-                  {
-                    name: 'href',
-                    type: 'url',
-                    title: 'Url',
-                  },
-                ],
-              },
-            ],
-          },
-        }),
-      ],
+      type: 'string',
+    }),
+    defineField({
+      name: 'adminEmail',
+      title: 'Admin Email',
+      type: 'string',
     }),
     defineField({
       name: 'ogImage',

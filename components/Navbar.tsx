@@ -1,14 +1,9 @@
 import {OptimisticSortOrder} from '@/components/OptimisticSortOrder'
-import type {SettingsQueryResult} from '@/sanity.types'
 import {studioUrl} from '@/sanity/lib/api'
-import {resolveHref} from '@/sanity/lib/utils'
 import {createDataAttribute, stegaClean} from 'next-sanity'
 import Link from 'next/link'
 
-interface NavbarProps {
-  data: SettingsQueryResult
-}
-export function Navbar(props: NavbarProps) {
+export function Navbar(props) {
   const {data} = props
   const dataAttribute =
     data?._id && data?._type
@@ -18,34 +13,48 @@ export function Navbar(props: NavbarProps) {
           type: data._type,
         })
       : null
+
+
+
   return (
-    <header
-      className="sticky top-0 z-10 flex flex-wrap items-center gap-x-5 bg-white/80 px-4 py-4 backdrop-blur md:px-16 md:py-5 lg:px-32"
-      data-sanity={dataAttribute?.('menuItems')}
-    >
-      <OptimisticSortOrder id={data?._id!} path="menuItems">
-        {data?.menuItems?.map((menuItem) => {
-          const href = resolveHref(menuItem?._type, menuItem?.slug)
-          if (!href) {
-            return null
-          }
-          return (
-            <Link
-              key={menuItem._key}
-              className={`text-lg hover:text-black md:text-xl ${
-                menuItem?._type === 'home' ? 'font-extrabold text-black' : 'text-gray-600'
-              }`}
-              data-sanity={dataAttribute?.([
-                'menuItems',
-                {_key: menuItem._key as unknown as string},
-              ])}
-              href={href}
-            >
-              {stegaClean(menuItem.title)}
-            </Link>
-          )
-        })}
-      </OptimisticSortOrder>
+    <header data-sanity={dataAttribute?.('menuItems')}>
+      <div className="container">
+        <div className="menu">
+          <div className="bars">
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+        <div className="links">
+          <OptimisticSortOrder id={data?._id!} path="menuItems">
+            {data?.menuItems?.map((menuItem) => {
+              return (
+                <Link
+                  key={menuItem._key}
+                  data-sanity={dataAttribute?.([
+                    'menuItems',
+                    {_key: menuItem._key as unknown as string},
+                  ])}
+                  href={menuItem.link}
+                >
+                  {stegaClean(menuItem.title)}
+                </Link>
+              )
+            })}
+          </OptimisticSortOrder>
+        </div>
+        <div className="cta">
+          <a href={data?.menuMainButton?.link}>
+            <button>
+              <div className="center">
+                <i className="ph ph-phone" />
+                <p>{data?.menuMainButton?.title}</p> <i className="ph ph-arrow-right" />
+              </div>
+            </button>
+          </a>
+        </div>
+      </div>
     </header>
   )
 }
