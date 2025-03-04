@@ -51,7 +51,7 @@ export default async function IndexRoute({children}: {children: React.ReactNode}
     </head> */}
     <Navbar data={data} />
     {children}
-    <Footer data={data} />
+    <Footer data={data || {}} />
       {/* <div className="flex min-h-screen flex-col bg-white text-black">
         <Navbar data={data} />
         <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">{children}</div>

@@ -20,7 +20,7 @@ function HomeSlider({data}) {
   //   };
   return (
     <ScrollCarousel autoplay smartSpeed speed={7} className='slider'>
-      {data.map(v => (
+      {data?.map(v => (
         <div className="card-3">
         <Quotes />
         <p>

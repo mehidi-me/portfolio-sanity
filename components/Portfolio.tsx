@@ -20,7 +20,7 @@ function Portfolio({ portfolioCategory, data }) {
         >
           All
         </button>
-        {portfolioCategory.map((category) => (
+        {portfolioCategory?.map((category) => (
           <button
             key={category.id}
             className={`tab ${selectedCategory === category.title ? 'active' : ''}`}
@@ -33,7 +33,7 @@ function Portfolio({ portfolioCategory, data }) {
 
       {/* Portfolio Grid */}
       <div className="grid-3">
-        {filteredData.map((item) => (
+        {filteredData?.map((item) => (
           <div className="card-4" key={item.id}>
             <div className="frame">
               <img src={urlForImage(item.coverImage)?.url()} alt={item.title} />

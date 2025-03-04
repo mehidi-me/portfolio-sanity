@@ -144,31 +144,31 @@ export function HomePage({data}) {
       <main>
         <div className="container">
           <div className="content">
-            <h1>{heroSection.title}</h1>
-            <h2>{heroSection.overview}</h2>
+            <h1>{heroSection?.title}</h1>
+            <h2>{heroSection?.overview}</h2>
             <div className="buttons">
-              <a href={heroSection.button1.link}>
+              <a href={heroSection?.button1.link}>
                 <button className="empty">
                   <div className="center">
                     {' '}
                     <User />
-                    <p>{heroSection.button1.text}</p> <ArrowRight />
+                    <p>{heroSection?.button1.text}</p> <ArrowRight />
                   </div>
                 </button>
               </a>
-              <a href={heroSection.button2.link}>
+              <a href={heroSection?.button2.link}>
                 <button>
                   <div className="center">
                     {' '}
                     <FileText />
-                    <p>{heroSection.button2.text}</p> <ArrowRight />
+                    <p>{heroSection?.button2.text}</p> <ArrowRight />
                   </div>
                 </button>
               </a>
             </div>
           </div>
           <div className="fade">
-            <img src={urlForImage(heroSection.fadeImage)?.url()} alt="" className="me" />
+            <img src={urlForImage(heroSection?.fadeImage)?.url()} alt="" className="me" />
           </div>
         </div>
       </main>
@@ -176,8 +176,8 @@ export function HomePage({data}) {
         <div className="container">
           <div className="grid-3 adj">
             <div className="text-content">
-              <h2>{aboutSection.about1.title}</h2>
-              <p>{aboutSection.about1.description}</p>
+              <h2>{aboutSection?.about1.title}</h2>
+              <p>{aboutSection?.about1.description}</p>
               <div className="social">
                 <a href="#">
                   <FacebookLogo />
@@ -194,20 +194,20 @@ export function HomePage({data}) {
             </div>
             <div className="card">
               <div>
-                <h3>{aboutSection.about2.title}</h3>
-                <p>{aboutSection.about2.description}</p>
+                <h3>{aboutSection?.about2.title}</h3>
+                <p>{aboutSection?.about2.description}</p>
               </div>
               <div className="frame">
-                <img src={urlForImage(aboutSection.about2.image)?.url()} alt="" />
+                <img src={urlForImage(aboutSection?.about2.image)?.url()} alt="" />
               </div>
             </div>
             <div className="space-around">
               <div className="video">
-                <img src={urlForImage(aboutSection.about3.image)?.url()} alt="" />
+                <img src={urlForImage(aboutSection?.about3.image)?.url()} alt="" />
                 <ArrowUpRight />
               </div>
               <div className="list">
-                {aboutSection.about3.keyPoints.map((keyPoint, index) => (
+                {aboutSection?.about3.keyPoints.map((keyPoint, index) => (
                   <div className="item" key={index}>
                     <div className="ico">
                       <StarFour />
@@ -224,22 +224,22 @@ export function HomePage({data}) {
         <div className="container">
           <div className="title-2">
             <div>
-              <div className="tag">{experienceSection.tagline}</div>
-              <h2>{experienceSection.title}</h2>
+              <div className="tag">{experienceSection?.tagline}</div>
+              <h2>{experienceSection?.title}</h2>
             </div>
             <div>
-              <p>{experienceSection.description}</p>
+              <p>{experienceSection?.description}</p>
               <button className="empty">
                 <div className="center">
                   {' '}
                   <User />
-                  <p>{experienceSection.heading}</p> <ArrowRight />
+                  <p>{experienceSection?.heading}</p> <ArrowRight />
                 </div>
               </button>
             </div>
           </div>
           <div className="list">
-            {experienceSection.experience.map((item, index) => (
+            {experienceSection?.experience.map((item, index) => (
               <div className="item card-2" key={index}>
                 <div className="tt">
                   <h3>{item.title}</h3>
@@ -259,12 +259,12 @@ export function HomePage({data}) {
       <section id="service">
         <div className="container">
           <div className="title">
-            <div className="tag">{servicesSection.tagline}</div>
-            <h2>{servicesSection.title}</h2>
+            <div className="tag">{servicesSection?.tagline}</div>
+            <h2>{servicesSection?.title}</h2>
           </div>
           <div className="grid-2 adj">
             <div className="grid-2">
-              {servicesSection.services.map((service, index) => (
+              {servicesSection?.services.map((service, index) => (
                 <div className="card-3" key={index}>
                   <h3>{service.title}</h3>
                   {/* <p>
@@ -278,7 +278,7 @@ export function HomePage({data}) {
              
             </div>
             <div className="fade fix">
-              <img src={urlForImage(servicesSection.fadeImage)?.url()} alt="" />
+              <img src={urlForImage(servicesSection?.fadeImage)?.url()} alt="" />
             </div>
           </div>
         </div>
@@ -286,26 +286,26 @@ export function HomePage({data}) {
       <section id="portfolio">
         <div className="container">
           <div className="title">
-            <div className="tag">{portfolioSection.tagline}</div>
-            <h2>{portfolioSection.title}</h2>
+            <div className="tag">{portfolioSection?.tagline}</div>
+            <h2>{portfolioSection?.title}</h2>
           </div>
-          <Portfolio portfolioCategory={data.portfolioCategory} data={portfolioSection.portfolios} />
+          <Portfolio portfolioCategory={data.portfolioCategory} data={portfolioSection?.portfolios} />
         </div>
       </section>
       <section id="key">
         <div className="container">
           <div className="title">
-            <div className="tag">{keyIdeaSection.tagline}</div>
-            <h2>{keyIdeaSection.title}</h2>
+            <div className="tag">{keyIdeaSection?.tagline}</div>
+            <h2>{keyIdeaSection?.title}</h2>
           </div>
-          <HomeSlider data={keyIdeaSection.keyIdeas} />
+          <HomeSlider data={keyIdeaSection?.keyIdeas} />
         </div>
       </section>
       <section id="contact">
         <div className="container">
           <div className="title">
-            <div className="tag">{contactSection.tagline}</div>
-            <h2>{contactSection.title}</h2>
+            <div className="tag">{contactSection?.tagline}</div>
+            <h2>{contactSection?.title}</h2>
           </div>
           <div className="grid-2 align-center gap-5">
             <form action="#">
@@ -324,12 +324,12 @@ export function HomePage({data}) {
                 <div className="center">
                   
                   <PaperPlaneRight />
-                  <p>{contactSection.buttonText}</p> <ArrowRight />
+                  <p>{contactSection?.buttonText}</p> <ArrowRight />
                 </div>
               </button>
             </form>
             <div className="fade d-none">
-              <img src={urlForImage(contactSection.fadeImage)?.url()} alt="" />
+              <img src={urlForImage(contactSection?.fadeImage)?.url()} alt="" />
             </div>
           </div>
         </div>
