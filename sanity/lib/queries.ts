@@ -1,7 +1,19 @@
 import {defineQuery} from 'next-sanity'
 
-export const homePageQuery = defineQuery(`
-  *[_type == "home" && _id == "home"][0]
+export const homePageQuery = defineQuery(`{
+'home':  *[_type == "home" && _id == "home"][0]{
+  ...,
+portfolioSection{
+  ...,
+  portfolios[]->{
+    ...,
+    
+portfolioCategory->
+  }
+}
+},
+'portfolioCategory': *[_type == "portfolioCategory"]
+}
 `)
 
 export const pagesBySlugQuery = defineQuery(`

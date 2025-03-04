@@ -18,6 +18,7 @@ import {
 import {createDataAttribute, PortableText} from 'next-sanity'
 import {useEffect} from 'react'
 import { CustomPortableText } from './CustomPortableText'
+import Portfolio from './Portfolio'
 
 //import ScrollReveal from 'scrollreveal'
 
@@ -36,7 +37,8 @@ export function HomePage({data}) {
     servicesSection,
     keyIdeaSection,
     contactSection,
-  } = data ?? {}
+    portfolioSection
+  } = data.home ?? {}
 
   const dataAttribute =
     data?._id && data?._type
@@ -284,98 +286,10 @@ export function HomePage({data}) {
       <section id="portfolio">
         <div className="container">
           <div className="title">
-            <div className="tag">Portfolio</div>
-            <h2>My best works</h2>
+            <div className="tag">{portfolioSection.tagline}</div>
+            <h2>{portfolioSection.title}</h2>
           </div>
-          <div className="tabs">
-            <button className="tab active">All</button>
-            <button className="tab">Cybernetics</button>
-            <button className="tab">Real Estate</button>
-            <button className="tab">Consulting</button>
-          </div>
-          <div className="grid-3">
-            <div className="card-4">
-              <div className="frame">
-                <img src="/images/p1.jpg" alt="" />
-              </div>
-              <div className="body">
-                <div className="tag-2">Cybernetics</div>
-                <h3>Understanding</h3>
-              </div>
-            </div>
-            <div className="card-4">
-              <div className="frame">
-                <img src="/images/p2.jpg" alt="" />
-              </div>
-              <div className="body">
-                <div className="tag-2">Consulting</div>
-                <h3>Find Related Books</h3>
-              </div>
-            </div>
-            <div className="card-4">
-              <div className="frame">
-                <img src="/images/p3.jpg" alt="" />
-              </div>
-              <div className="body">
-                <div className="tag-2">Real Estate</div>
-                <h3>Boston Home Bargains</h3>
-              </div>
-            </div>
-            <div className="card-4">
-              <div className="frame">
-                <img src="/images/p4.jpg" alt="" />
-              </div>
-              <div className="body">
-                <div className="tag-2">Consulting</div>
-                <h3>Dangers of Simplification</h3>
-              </div>
-            </div>
-            <div className="card-4">
-              <div className="frame">
-                <img src="/images/p5.jpg" alt="" />
-              </div>
-              <div className="body">
-                <div className="tag-2">Real Estate</div>
-                <h3>Portland Homes</h3>
-              </div>
-            </div>
-            <div className="card-4">
-              <div className="frame">
-                <img src="/images/p6.jpg" alt="" />
-              </div>
-              <div className="body">
-                <div className="tag-2">Consulting</div>
-                <h3>Whistleblowing</h3>
-              </div>
-            </div>
-            <div className="card-4">
-              <div className="frame">
-                <img src="/images/p7.jpg" alt="" />
-              </div>
-              <div className="body">
-                <div className="tag-2">Real Estate</div>
-                <h3>Boston Homes</h3>
-              </div>
-            </div>
-            <div className="card-4">
-              <div className="frame">
-                <img src="/images/p8.jpg" alt="" />
-              </div>
-              <div className="body">
-                <div className="tag-2">Cybernetics</div>
-                <h3>Second Order Science</h3>
-              </div>
-            </div>
-            <div className="card-4">
-              <div className="frame">
-                <img src="/images/p9.jpg" alt="" />
-              </div>
-              <div className="body">
-                <div className="tag-2">Cybernetics</div>
-                <h3>Rescuing Cybernetics</h3>
-              </div>
-            </div>
-          </div>
+          <Portfolio portfolioCategory={data.portfolioCategory} data={portfolioSection.portfolios} />
         </div>
       </section>
       <section id="key">

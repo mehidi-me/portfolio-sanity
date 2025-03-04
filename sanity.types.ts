@@ -403,13 +403,146 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./sanity/lib/queries.ts
 // Variable: homePageQuery
-// Query: *[_type == "home"][0]{    _id,    _type,    overview,    showcaseProjects[]{      _key,      ...@->{        _id,        _type,        coverImage,        overview,        "slug": slug.current,        tags,        title,      }    },    title,  }
+// Query: *[_type == "home" && _id == "home"][0]
 export type HomePageQueryResult = {
   _id: string
   _type: 'home'
-  overview: null
-  showcaseProjects: null
-  title: null
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  heroSection?: {
+    title?: string
+    overview?: string
+    fadeImage?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    button1?: {
+      text?: string
+      link?: string
+    }
+    button2?: {
+      text?: string
+      link?: string
+    }
+  }
+  aboutSection?: {
+    about1?: {
+      title?: string
+      description?: string
+    }
+    about2?: {
+      title?: string
+      description?: string
+      image?: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+      }
+    }
+    about3?: {
+      image?: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+      }
+      videoLink?: string
+      keyPoints?: Array<string>
+    }
+  }
+  experienceSection?: {
+    tagline?: string
+    title?: string
+    description?: string
+    heading?: string
+    experience?: Array<{
+      title?: string
+      description?: string
+      duration?: Duration
+      tagline?: string
+      _key: string
+    }>
+  }
+  servicesSection?: {
+    tagline?: string
+    title?: string
+    fadeImage?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    services?: Array<{
+      title?: string
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }>
+      _key: string
+    }>
+  }
+  keyIdeaSection?: {
+    tagline?: string
+    title?: string
+    keyIdeas?: Array<{
+      description?: string
+      _key: string
+    }>
+  }
+  contactSection?: {
+    tagline?: string
+    title?: string
+    fadeImage?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    buttonText?: string
+  }
 } | null
 // Variable: pagesBySlugQuery
 // Query: *[_type == "page" && slug.current == $slug][0] {    _id,    _type,    body,    overview,    title,    "slug": slug.current,  }
@@ -454,7 +587,7 @@ export type SlugsByTypeQueryResult = Array<{
 
 declare module '@sanity/client' {
   interface SanityQueries {
-    '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult
+    '\n  *[_type == "home" && _id == "home"][0]\n': HomePageQueryResult
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    _type,\n    client,\n    coverImage,\n    description,\n    duration,\n    overview,\n    site,\n    "slug": slug.current,\n    tags,\n    title,\n  }\n': ProjectBySlugQueryResult
     '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[],\n    ogImage,\n    menuMainButton,\n    adminEmail\n  }\n': SettingsQueryResult
