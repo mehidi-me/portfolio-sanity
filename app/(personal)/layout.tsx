@@ -46,9 +46,9 @@ export default async function IndexRoute({children}: {children: React.ReactNode}
   const {data} = await sanityFetch({query: settingsQuery})
   return (
     <>
-    <head>
+    {/* <head>
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
-    </head>
+    </head> */}
     <Navbar data={data} />
     {children}
     <Footer data={data} />

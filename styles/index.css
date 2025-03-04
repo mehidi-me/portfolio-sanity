@@ -39,6 +39,11 @@ i svg {
   height: 1.8rem;
   fill: var(--light);
 }
+svg {
+  width: unset;
+  height: 1.8rem;
+  fill: var(--light);
+}
 p,
 a,
 input,
@@ -97,27 +102,28 @@ button p {
   line-height: 1;
   white-space: nowrap;
 }
-button i {
+button svg {
   width: 3rem;
   overflow: hidden;
   transition: 0.3s;
   color: var(--light);
   font-size: 2rem;
 }
-button i:nth-child(3) {
+button svg:nth-child(3) {
   width: 0rem;
   opacity: 0;
 }
-button:hover i:nth-child(1) {
+button:hover svg:nth-child(1) {
   width: 0;
   opacity: 0;
 }
-button:hover i:nth-child(3) {
+button:hover svg:nth-child(3) {
   width: 3rem;
   opacity: 1;
 }
-button.empty :is(p, i) {
-  color: var(--primary-text);
+button.empty :is(p, svg) {
+  color: var(--primary-text) !important;
+  fill: var(--primary-text) !important;
 }
 button:hover {
   background: var(--primary);
@@ -301,7 +307,7 @@ footer a {
   object-position: center;
   filter: grayscale(1);
 }
-.video i {
+.video svg {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -351,10 +357,10 @@ footer a {
 }
 .text-content .overlay {
   position: absolute;
-  font-size: 20rem;
+  height: 20rem;
   left: 0;
   bottom: 0;
-  color: #dfdfdf;
+  fill: #dfdfdf;
 }
 .title-2 {
   display: grid;
@@ -530,13 +536,14 @@ footer a {
   position: relative;
   height: 100%;
 }
-.slider .card-3 i {
+.slider .card-3 svg {
   position: absolute;
   left: 1rem;
   top: 1rem;
-  font-size: 5rem;
+  height: 5rem;
   transform: rotate(-180deg);
   opacity: 0.1;
+  fill: var(--primary-text);
 }
 .slider .card-3 p {
   font-size: 2rem;
@@ -594,8 +601,9 @@ footer .container {
   align-items: center;
   gap: 1rem;
 }
-.social i {
-  font-size: 2.5rem;
+.social svg {
+  height: 2.5rem;
+  fill: var(--primary-text);
 }
 .fade {
   position: relative;

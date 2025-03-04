@@ -2,6 +2,7 @@ import {OptimisticSortOrder} from '@/components/OptimisticSortOrder'
 import {studioUrl} from '@/sanity/lib/api'
 import {createDataAttribute, stegaClean} from 'next-sanity'
 import Link from 'next/link'
+import {ArrowRight, Phone} from "@phosphor-icons/react/dist/ssr"
 
 export function Navbar(props) {
   const {data} = props
@@ -48,8 +49,9 @@ export function Navbar(props) {
           <a href={data?.menuMainButton?.link}>
             <button>
               <div className="center">
-                <i className="ph ph-phone" />
-                <p>{data?.menuMainButton?.title}</p> <i className="ph ph-arrow-right" />
+                {/* <i className="ph ph-phone" /> */}
+                <Phone />
+                <p>{data?.menuMainButton?.title}</p> <ArrowRight />
               </div>
             </button>
           </a>

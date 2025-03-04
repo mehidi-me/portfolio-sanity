@@ -3,18 +3,40 @@
 import HomeSlider from '@/components/HomeSlider'
 import type {HomePageQueryResult} from '@/sanity.types'
 import {studioUrl} from '@/sanity/lib/api'
-import {createDataAttribute} from 'next-sanity'
+import {urlForImage} from '@/sanity/lib/utils'
+import {
+  ArrowRight,
+  ArrowUpRight,
+  FacebookLogo,
+  FileText,
+  InstagramLogo,
+  LinkedinLogo,
+  PaperPlaneRight,
+  StarFour,
+  User,
+} from '@phosphor-icons/react/dist/ssr'
+import {createDataAttribute, PortableText} from 'next-sanity'
 import {useEffect} from 'react'
+import { CustomPortableText } from './CustomPortableText'
 
 //import ScrollReveal from 'scrollreveal'
 
-export interface HomePageProps {
-  data: HomePageQueryResult | null
-}
+// export interface HomePageProps {
+//   data: HomePageQueryResult | null
+// }
 
-export function HomePage({data}: HomePageProps) {
+export function HomePage({data}) {
   // Default to an empty object to allow previews on non-existent documents
-  const {overview = [], showcaseProjects = [], title = ''} = data ?? {}
+  // const {overview = [], showcaseProjects = [], title = ''} = data ?? {}
+  console.log(data)
+  const {
+    heroSection,
+    aboutSection,
+    experienceSection,
+    servicesSection,
+    keyIdeaSection,
+    contactSection,
+  } = data ?? {}
 
   const dataAttribute =
     data?._id && data?._type
@@ -120,31 +142,31 @@ export function HomePage({data}: HomePageProps) {
       <main>
         <div className="container">
           <div className="content">
-            <h1>Michael Lissack</h1>
-            <h2>Applied phillosopher, Enterpreunor, realtor</h2>
+            <h1>{heroSection.title}</h1>
+            <h2>{heroSection.overview}</h2>
             <div className="buttons">
-              <a href="#about">
+              <a href={heroSection.button1.link}>
                 <button className="empty">
                   <div className="center">
                     {' '}
-                    <i className="ph ph-user" />
-                    <p>About me</p> <i className="ph ph-arrow-right" />
+                    <User />
+                    <p>{heroSection.button1.text}</p> <ArrowRight />
                   </div>
                 </button>
               </a>
-              <a href="#">
+              <a href={heroSection.button2.link}>
                 <button>
                   <div className="center">
                     {' '}
-                    <i className="ph ph-file-text" />
-                    <p>My CV</p> <i className="ph ph-arrow-right" />
+                    <FileText />
+                    <p>{heroSection.button2.text}</p> <ArrowRight />
                   </div>
                 </button>
               </a>
             </div>
           </div>
           <div className="fade">
-            <img src="/images/1.png" alt="" className="me" />
+            <img src={urlForImage(heroSection.fadeImage)?.url()} alt="" className="me" />
           </div>
         </div>
       </main>
@@ -152,64 +174,45 @@ export function HomePage({data}: HomePageProps) {
         <div className="container">
           <div className="grid-3 adj">
             <div className="text-content">
-              <h2>About me</h2>
-              <p>
-                I'm passionate about exploring how cybernetics and complex systems deepen our
-                understanding of human cognition—both individually and collectively. My academic
-                journey has taken me from a bachelor's at Williams College to a master's at Yale,
-                and finally to a doctorate from Henley Management College. Ready to dive into
-                innovative thinking together?
-              </p>
+              <h2>{aboutSection.about1.title}</h2>
+              <p>{aboutSection.about1.description}</p>
               <div className="social">
                 <a href="#">
-                  <i className="ph-light ph-facebook-logo" />
+                  <FacebookLogo />
                 </a>
                 <a href="#">
-                  <i className="ph-light ph-instagram-logo" />
+                  <InstagramLogo />
                 </a>
                 <a href="#">
-                  <i className="ph-light ph-linkedin-logo" />
+                  <LinkedinLogo />
                 </a>
               </div>
-              <i className="ph-thin ph-arrow-up-right overlay" />
+              {/* <i className="ph-thin ph-arrow-up-right overlay" /> */}
+              <ArrowUpRight className="overlay" />
             </div>
             <div className="card">
               <div>
-                <h3>150%</h3>
-                <p>
-                  Increase in research-driven insights and collaborative innovation over the last 5
-                  years
-                </p>
+                <h3>{aboutSection.about2.title}</h3>
+                <p>{aboutSection.about2.description}</p>
               </div>
               <div className="frame">
-                <img src="/images/3.png" alt="" />
+                <img src={urlForImage(aboutSection.about2.image)?.url()} alt="" />
               </div>
             </div>
             <div className="space-around">
               <div className="video">
-                <img src="/images/video.png" alt="" />
-                <i className="ph-thin ph-arrow-up-right" />
+                <img src={urlForImage(aboutSection.about3.image)?.url()} alt="" />
+                <ArrowUpRight />
               </div>
               <div className="list">
-                <div className="item">
-                  <div className="ico">
-                    <i className="ph-fill ph-star-four" />
+                {aboutSection.about3.keyPoints.map((keyPoint, index) => (
+                  <div className="item" key={index}>
+                    <div className="ico">
+                      <StarFour />
+                    </div>
+                    <p>{keyPoint}</p>
                   </div>
-                  <p>
-                    With decades of experience, I specialize in applying systems thinking and
-                    cybernetics to uncover meaningful patterns and foster innovative solutions.
-                  </p>
-                </div>
-                <div className="item">
-                  <div className="ico">
-                    <i className="ph-fill ph-star-four" />
-                  </div>
-                  <p>
-                    I collaborate closely with scholars and professionals, blending academic
-                    research with practical applications to drive impactful discoveries and
-                    advancements.
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -219,112 +222,61 @@ export function HomePage({data}: HomePageProps) {
         <div className="container">
           <div className="title-2">
             <div>
-              <div className="tag">Exparience</div>
-              <h2>Michael Lissack Academics</h2>
+              <div className="tag">{experienceSection.tagline}</div>
+              <h2>{experienceSection.title}</h2>
             </div>
             <div>
-              <p>
-                Michael Lissack academic work has focused on how cybernetics and complex systems
-                help to better understand human cognition at both the individual and shared levels.
-              </p>
+              <p>{experienceSection.description}</p>
               <button className="empty">
                 <div className="center">
                   {' '}
-                  <i className="ph ph-user" />
-                  <p>Contact me</p> <i className="ph ph-arrow-right" />
+                  <User />
+                  <p>{experienceSection.heading}</p> <ArrowRight />
                 </div>
               </button>
             </div>
           </div>
           <div className="list">
-            <div className="item card-2">
-              <div className="tt">
-                <h3>President</h3>
-                <div className="date">
-                  <p>February 2015</p> -<p>February 2020</p>
+            {experienceSection.experience.map((item, index) => (
+              <div className="item card-2" key={index}>
+                <div className="tt">
+                  <h3>{item.title}</h3>
+                  <div className="date">
+                    <p>February 2015</p> -<p>February 2020</p>
+                  </div>
+                </div>
+                <p>{item.description}</p>
+                <div className="tags">
+                  <div className="tag-2">{item.tagline}</div>
                 </div>
               </div>
-              <p>
-                Michael Lissack is the immediate past President of the American Society for
-                Cybernetics.
-              </p>
-              <div className="tags">
-                <div className="tag-2">President</div>
-              </div>
-            </div>
-            <div className="item card-2">
-              <div className="tt">
-                <h3>Executive Director</h3>
-                <div className="date">
-                  <p>February 1998</p> -<p>February 2018</p>
-                </div>
-              </div>
-              <p>
-                Executive Director Emeritus of the Institute for the Study of Coherence and
-                Emergence
-              </p>
-              <div className="tags">
-                <div className="tag-2">Director</div>
-              </div>
-            </div>
-            <div className="item card-2">
-              <div className="tt">
-                <h3>Professor</h3>
-                <div className="date">
-                  <p>February 2015</p> -<p>Present</p>
-                </div>
-              </div>
-              <p>
-                Professor of Design and Innovation, College of Design and Innovation, Tongji
-                University, Shanghai
-              </p>
-              <div className="tags">
-                <div className="tag-2">Professor</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
       <section id="service">
         <div className="container">
           <div className="title">
-            <div className="tag">Service</div>
-            <h2>My Services</h2>
+            <div className="tag">{servicesSection.tagline}</div>
+            <h2>{servicesSection.title}</h2>
           </div>
           <div className="grid-2 adj">
             <div className="grid-2">
-              <div className="card-3">
-                <h3>Speaking</h3>
-                <p>
-                  Dr. Lissack is available to speak to groups large and small on "How we Think",
-                  "The Dangers of Excess Simplification", and "A Guide to Better Understanding
-                </p>
-              </div>
-              <div className="card-3">
-                <h3>Teaching</h3>
-                <p>
-                  Dr. Lissack is available to give half day to three day seminars on these same
-                  topics to academic and corporate groups around the globe.
-                </p>
-              </div>
-              <div className="card-3">
-                <h3>Real Estate</h3>
-                <p>
-                  Michael helps people in the <a href="#">Greater Boston Area buy and sell homes</a>
-                  . He is also the managing broker for the Virtual Realty Group in{' '}
-                  <a href="#">Oregon</a> and <a href="#">Washington</a>.
-                </p>
-              </div>
-              <div className="card-3">
-                <h3>On-line Research</h3>
-                <p>
-                  Please visit <a href="#">FindRelatedBooks.com</a> to see an example of Dr.
-                  Lissack's Find More Like This technology at work
-                </p>
-              </div>
+              {servicesSection.services.map((service, index) => (
+                <div className="card-3" key={index}>
+                  <h3>{service.title}</h3>
+                  {/* <p>
+                    Dr. Lissack is available to speak to groups large and small on "How we Think",
+                    "The Dangers of Excess Simplification", and "A Guide to Better Understanding
+                  </p> */}
+                  <PortableText value={service.description} />
+                </div>
+              ))}
+
+             
             </div>
             <div className="fade fix">
-              <img src="/images/1.png" alt="" />
+              <img src={urlForImage(servicesSection.fadeImage)?.url()} alt="" />
             </div>
           </div>
         </div>
@@ -429,17 +381,17 @@ export function HomePage({data}: HomePageProps) {
       <section id="key">
         <div className="container">
           <div className="title">
-            <div className="tag">Idea</div>
-            <h2>Key Ideas</h2>
+            <div className="tag">{keyIdeaSection.tagline}</div>
+            <h2>{keyIdeaSection.title}</h2>
           </div>
-          <HomeSlider />
+          <HomeSlider data={keyIdeaSection.keyIdeas} />
         </div>
       </section>
       <section id="contact">
         <div className="container">
           <div className="title">
-            <div className="tag">Contact</div>
-            <h2>Get in touch with me</h2>
+            <div className="tag">{contactSection.tagline}</div>
+            <h2>{contactSection.title}</h2>
           </div>
           <div className="grid-2 align-center gap-5">
             <form action="#">
@@ -456,13 +408,14 @@ export function HomePage({data}: HomePageProps) {
               />
               <button>
                 <div className="center">
-                  <i className="ph ph-paper-plane-right" />
-                  <p>Send message</p> <i className="ph ph-arrow-right" />
+                  
+                  <PaperPlaneRight />
+                  <p>{contactSection.buttonText}</p> <ArrowRight />
                 </div>
               </button>
             </form>
             <div className="fade d-none">
-              <img src="/images/1.png" alt="" />
+              <img src={urlForImage(contactSection.fadeImage)?.url()} alt="" />
             </div>
           </div>
         </div>
