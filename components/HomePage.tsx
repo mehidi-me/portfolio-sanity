@@ -17,7 +17,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import {createDataAttribute, PortableText} from 'next-sanity'
 import {useEffect} from 'react'
-import { CustomPortableText } from './CustomPortableText'
+import {CustomPortableText} from './CustomPortableText'
 import Portfolio from './Portfolio'
 
 //import ScrollReveal from 'scrollreveal'
@@ -26,7 +26,7 @@ import Portfolio from './Portfolio'
 //   data: HomePageQueryResult | null
 // }
 
-export function HomePage({data}) {
+export function HomePage({data, settingData}) {
   // Default to an empty object to allow previews on non-existent documents
   // const {overview = [], showcaseProjects = [], title = ''} = data ?? {}
   console.log(data)
@@ -37,7 +37,7 @@ export function HomePage({data}) {
     servicesSection,
     keyIdeaSection,
     contactSection,
-    portfolioSection
+    portfolioSection,
   } = data.home ?? {}
 
   const dataAttribute =
@@ -100,7 +100,13 @@ export function HomePage({data}) {
       })
     }
     animate()
-  }, [])
+  }, []);
+
+  const formatDate = (isoString: string) => {
+    const date = new Date(isoString);
+    return date.toLocaleString("en-US", { year: "numeric", month: "long" });
+  };
+  
   // return (
   //   <div className="space-y-20">
   //     {/* Header */}
@@ -141,7 +147,7 @@ export function HomePage({data}) {
   // )
   return (
     <div className="homePage">
-      <main>
+      <main id='home'>
         <div className="container">
           <div className="content">
             <h1>{heroSection?.title}</h1>
@@ -179,13 +185,13 @@ export function HomePage({data}) {
               <h2>{aboutSection?.about1.title}</h2>
               <p>{aboutSection?.about1.description}</p>
               <div className="social">
-                <a href="#">
+                <a href={settingData?.socialLink.facebook}>
                   <FacebookLogo />
                 </a>
-                <a href="#">
+                <a href={settingData?.socialLink.instagram}>
                   <InstagramLogo />
                 </a>
-                <a href="#">
+                <a href={settingData?.socialLink.linkedin}>
                   <LinkedinLogo />
                 </a>
               </div>
@@ -220,7 +226,7 @@ export function HomePage({data}) {
           </div>
         </div>
       </section>
-      <section id="exparience">
+      <section id="experience">
         <div className="container">
           <div className="title-2">
             <div>
@@ -244,7 +250,7 @@ export function HomePage({data}) {
                 <div className="tt">
                   <h3>{item.title}</h3>
                   <div className="date">
-                    <p>February 2015</p> -<p>February 2020</p>
+                    <p>{formatDate(item.duration.start)}</p> -<p>{formatDate(item.duration.end)}</p>
                   </div>
                 </div>
                 <p>{item.description}</p>
@@ -256,7 +262,7 @@ export function HomePage({data}) {
           </div>
         </div>
       </section>
-      <section id="service">
+      <section id="services">
         <div className="container">
           <div className="title">
             <div className="tag">{servicesSection?.tagline}</div>
@@ -274,8 +280,6 @@ export function HomePage({data}) {
                   <PortableText value={service.description} />
                 </div>
               ))}
-
-             
             </div>
             <div className="fade fix">
               <img src={urlForImage(servicesSection?.fadeImage)?.url()} alt="" />
@@ -289,7 +293,10 @@ export function HomePage({data}) {
             <div className="tag">{portfolioSection?.tagline}</div>
             <h2>{portfolioSection?.title}</h2>
           </div>
-          <Portfolio portfolioCategory={data.portfolioCategory} data={portfolioSection?.portfolios} />
+          <Portfolio
+            portfolioCategory={data.portfolioCategory}
+            data={portfolioSection?.portfolios}
+          />
         </div>
       </section>
       <section id="key">
@@ -322,7 +329,6 @@ export function HomePage({data}) {
               />
               <button>
                 <div className="center">
-                  
                   <PaperPlaneRight />
                   <p>{contactSection?.buttonText}</p> <ArrowRight />
                 </div>

@@ -1,8 +1,10 @@
+'use client'
 import {OptimisticSortOrder} from '@/components/OptimisticSortOrder'
 import {studioUrl} from '@/sanity/lib/api'
 import {createDataAttribute, stegaClean} from 'next-sanity'
 import Link from 'next/link'
 import {ArrowRight, Phone} from "@phosphor-icons/react/dist/ssr"
+import { useState } from 'react'
 
 export function Navbar(props) {
   const {data} = props
@@ -15,12 +17,16 @@ export function Navbar(props) {
         })
       : null
 
+const [showMenu, setShowMenu] = useState(false);
 
+const toggleMenu = () => {
+  setShowMenu(pre => !pre);
+}
 
   return (
-    <header data-sanity={dataAttribute?.('menuItems')}>
+    <header data-sanity={dataAttribute?.('menuItems')} className={showMenu ? 'active' : ''}>
       <div className="container">
-        <div className="menu">
+        <div className="menu" onClick={toggleMenu}>
           <div className="bars">
             <span />
             <span />
@@ -28,8 +34,10 @@ export function Navbar(props) {
           </div>
         </div>
         <div className="links">
-          <OptimisticSortOrder id={data?._id!} path="menuItems">
-            {data?.menuItems?.map((menuItem) => {
+          {/* <OptimisticSortOrder id={data?._id!} path="menuItems">
+           
+          </OptimisticSortOrder> */}
+           {data?.menuItems?.map((menuItem) => {
               return (
                 <Link
                   key={menuItem._key}
@@ -38,12 +46,12 @@ export function Navbar(props) {
                     {_key: menuItem._key as unknown as string},
                   ])}
                   href={menuItem.link}
+                  onClick={toggleMenu}
                 >
                   {stegaClean(menuItem.title)}
                 </Link>
               )
             })}
-          </OptimisticSortOrder>
         </div>
         <div className="cta">
           <a href={data?.menuMainButton?.link}>

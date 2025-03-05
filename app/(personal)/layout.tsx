@@ -21,17 +21,16 @@ export async function generateMetadata(): Promise<Metadata> {
   ])
 
   const ogImage = urlForOpenGraphImage(
-   // @ts-expect-error - @TODO update @sanity/image-url types so it's compatible
     settings?.ogImage,
   )
   return {
-    title: homePage?.title
+    title: homePage?.home?.heroSection?.title
       ? {
-          template: `%s | ${homePage.title}`,
-          default: homePage.title || 'Personal website',
+          template: `%s | ${homePage?.home?.heroSection?.title}`,
+          default: homePage?.home?.heroSection?.title || 'Personal website',
         }
       : undefined,
-    description: homePage?.overview ? toPlainText(homePage.overview) : undefined,
+    description: homePage?.home?.heroSection?.overview ? homePage.home.heroSection.overview : undefined,
     openGraph: {
       images: ogImage ? [ogImage] : [],
     },

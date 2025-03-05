@@ -56,6 +56,28 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'socialLink',
+      title: 'Social Link',
+      type: 'object',
+      fields: [
+        {
+          name: 'facebook',
+          type: 'url',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'instagram',
+          type: 'url',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'linkedin',
+          type: 'url',
+          validation: (Rule) => Rule.required(),
+        },
+      ],
+    }),
+    defineField({
       name: 'footer',
       description: 'This is a block of text that will be displayed at the bottom of the page.',
       title: 'Footer Info',

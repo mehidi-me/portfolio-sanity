@@ -51,7 +51,8 @@ export const settingsQuery = defineQuery(`
     menuItems[],
     ogImage,
     menuMainButton,
-    adminEmail
+    adminEmail,
+    socialLink,
   }
 `)
 

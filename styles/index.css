@@ -605,6 +605,9 @@ footer .container {
   height: 2.5rem;
   fill: var(--primary-text);
 }
+footer .social svg{
+  fill: var(--light);
+}
 .fade {
   position: relative;
 }
@@ -724,6 +727,7 @@ footer .container {
     align-items: center;
     justify-content: center;
   }
+ 
   footer .social {
     justify-content: center;
   }

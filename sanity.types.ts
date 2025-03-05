@@ -414,7 +414,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./sanity/lib/queries.ts
 // Variable: homePageQuery
-// Query: {'home':  *[_type == "home"][0]{  ...,portfolioSection{  ...,  portfolios[]->{    ...,    portfolioCategory->  }}},'portfolioCategory': *[_type == "portfolioCategory"]}
+// Query: {'home':  *[_type == "home" && _id == "home"][0]{  ...,portfolioSection{  ...,  portfolios[]->{    ...,    portfolioCategory->  }}},'portfolioCategory': *[_type == "portfolioCategory"]}
 export type HomePageQueryResult = {
   home: {
     _id: string
@@ -640,7 +640,7 @@ export type SlugsByTypeQueryResult = Array<{
 
 declare module '@sanity/client' {
   interface SanityQueries {
-    '{\n\'home\':  *[_type == "home"][0]{\n  ...,\nportfolioSection{\n  ...,\n  portfolios[]->{\n    ...,\n    \nportfolioCategory->\n  }\n}\n},\n\'portfolioCategory\': *[_type == "portfolioCategory"]\n}\n': HomePageQueryResult
+    '{\n\'home\':  *[_type == "home" && _id == "home"][0]{\n  ...,\nportfolioSection{\n  ...,\n  portfolios[]->{\n    ...,\n    \nportfolioCategory->\n  }\n}\n},\n\'portfolioCategory\': *[_type == "portfolioCategory"]\n}\n': HomePageQueryResult
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    _type,\n    client,\n    coverImage,\n    description,\n    duration,\n    overview,\n    site,\n    "slug": slug.current,\n    tags,\n    title,\n  }\n': ProjectBySlugQueryResult
     '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[],\n    ogImage,\n    menuMainButton,\n    adminEmail\n  }\n': SettingsQueryResult
