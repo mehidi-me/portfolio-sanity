@@ -208,7 +208,7 @@ export function HomePage({data, settingData}) {
               </div>
             </div>
             <div className="space-around">
-              <a href={aboutSection?.about3?.videoLink} target="_blank" rel="noopener noreferrer">
+              <a href={aboutSection?.about3?.videoLink} target="_blank" rel="noopener noreferrer" style={{margin:'0 auto'}}>
                 <div className="video">
                   <img src={urlForImage(aboutSection?.about3.image)?.url()} alt="" />
                   <ArrowUpRight />
