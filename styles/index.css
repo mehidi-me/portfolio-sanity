@@ -315,7 +315,9 @@ footer a {
   transform: translate(-50%, -50%);
   font-size: 3rem;
   width: 5rem;
-  aspect-ratio: 1/1;
+  height: 5rem;
+  padding: 1rem;
+  /* aspect-ratio: 1/1; */
   background: #ffffff0e;
   display: flex;
   align-items: center;

@@ -874,7 +874,7 @@
         },
         "optional": true
       },
-      "ogImage": {
+      "favicon": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
