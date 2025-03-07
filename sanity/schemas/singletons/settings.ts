@@ -89,14 +89,16 @@ export default defineType({
       type: 'string',
     }),
     defineField({
-      name: 'ogImage',
-      title: 'Open Graph Image',
+      name: 'favicon',
       type: 'image',
-      description: 'Displayed on social cards and search engine results.',
-      options: {
-        hotspot: true,
-      },
     }),
+    defineField(
+      {
+        title: "Seo",
+        name: "seo",
+        type: "seoMetaFields",
+      },
+    )
   ],
   preview: {
     prepare() {

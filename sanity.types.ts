@@ -162,6 +162,11 @@ export type Settings = {
     title?: string
     link?: string
   }
+  socialLink?: {
+    facebook?: string
+    instagram?: string
+    linkedin?: string
+  }
   footer?: string
   adminEmail?: string
   ogImage?: {
@@ -175,6 +180,7 @@ export type Settings = {
     crop?: SanityImageCrop
     _type: 'image'
   }
+  seo?: SeoMetaFields
 }
 
 export type Home = {
@@ -335,6 +341,86 @@ export type Duration = {
   end?: string
 }
 
+export type MetaTag = {
+  _type: 'metaTag'
+  metaAttributes?: Array<
+    {
+      _key: string
+    } & MetaAttribute
+  >
+}
+
+export type MetaAttribute = {
+  _type: 'metaAttribute'
+  attributeKey?: string
+  attributeType?: 'string' | 'image'
+  attributeValueImage?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  attributeValueString?: string
+}
+
+export type SeoMetaFields = {
+  _type: 'seoMetaFields'
+  nofollowAttributes?: boolean
+  metaTitle?: string
+  metaDescription?: string
+  metaImage?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  seoKeywords?: Array<string>
+  openGraph?: OpenGraph
+  additionalMetaTags?: Array<
+    {
+      _key: string
+    } & MetaTag
+  >
+  twitter?: Twitter
+}
+
+export type Twitter = {
+  _type: 'twitter'
+  cardType?: string
+  creator?: string
+  site?: string
+  handle?: string
+}
+
+export type OpenGraph = {
+  _type: 'openGraph'
+  url?: string
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  title?: string
+  description?: string
+  siteName?: string
+}
+
 export type SanityImageCrop = {
   _type: 'sanity.imageCrop'
   top?: number
@@ -406,6 +492,11 @@ export type AllSanitySchemaTypes =
   | Settings
   | Home
   | Duration
+  | MetaTag
+  | MetaAttribute
+  | SeoMetaFields
+  | Twitter
+  | OpenGraph
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
@@ -604,7 +695,7 @@ export type PagesBySlugQueryResult = null
 // Query: *[_type == "project" && slug.current == $slug][0] {    _id,    _type,    client,    coverImage,    description,    duration,    overview,    site,    "slug": slug.current,    tags,    title,  }
 export type ProjectBySlugQueryResult = null
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{    _id,    _type,    footer,    menuItems[],    ogImage,    menuMainButton,    adminEmail  }
+// Query: *[_type == "settings"][0]{    _id,    _type,    footer,    menuItems[],    ogImage,    menuMainButton,    adminEmail,    socialLink,  }
 export type SettingsQueryResult = {
   _id: string
   _type: 'settings'
@@ -631,6 +722,11 @@ export type SettingsQueryResult = {
     link?: string
   } | null
   adminEmail: string | null
+  socialLink: {
+    facebook?: string
+    instagram?: string
+    linkedin?: string
+  } | null
 } | null
 // Variable: slugsByTypeQuery
 // Query: *[_type == $type && defined(slug.current)]{"slug": slug.current}
@@ -643,7 +739,7 @@ declare module '@sanity/client' {
     '{\n\'home\':  *[_type == "home" && _id == "home"][0]{\n  ...,\nportfolioSection{\n  ...,\n  portfolios[]->{\n    ...,\n    \nportfolioCategory->\n  }\n}\n},\n\'portfolioCategory\': *[_type == "portfolioCategory"]\n}\n': HomePageQueryResult
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    _type,\n    client,\n    coverImage,\n    description,\n    duration,\n    overview,\n    site,\n    "slug": slug.current,\n    tags,\n    title,\n  }\n': ProjectBySlugQueryResult
-    '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[],\n    ogImage,\n    menuMainButton,\n    adminEmail\n  }\n': SettingsQueryResult
+    '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[],\n    ogImage,\n    menuMainButton,\n    adminEmail,\n    socialLink,\n  }\n': SettingsQueryResult
     '\n  *[_type == $type && defined(slug.current)]{"slug": slug.current}\n': SlugsByTypeQueryResult
   }
 }

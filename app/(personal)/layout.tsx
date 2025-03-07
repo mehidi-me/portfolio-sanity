@@ -1,5 +1,7 @@
 import '@/styles/index.css'
+import {generateMetadataC} from '@/components/CustomNextSeo'
 import {CustomPortableText} from '@/components/CustomPortableText'
+import Footer from '@/components/Footer'
 import {Navbar} from '@/components/Navbar'
 import IntroTemplate from '@/intro-template'
 import {sanityFetch, SanityLive} from '@/sanity/lib/live'
@@ -12,7 +14,6 @@ import {Suspense} from 'react'
 import {Toaster} from 'sonner'
 import {handleError} from './client-functions'
 import {DraftModeToast} from './DraftModeToast'
-import Footer from '@/components/Footer'
 
 export async function generateMetadata(): Promise<Metadata> {
   const [{data: settings}, {data: homePage}] = await Promise.all([
@@ -20,21 +21,20 @@ export async function generateMetadata(): Promise<Metadata> {
     sanityFetch({query: homePageQuery, stega: false}),
   ])
 
-  const ogImage = urlForOpenGraphImage(
-    settings?.ogImage,
-  )
-  return {
-    title: homePage?.home?.heroSection?.title
-      ? {
-          template: `%s | ${homePage?.home?.heroSection?.title}`,
-          default: homePage?.home?.heroSection?.title || 'Personal website',
-        }
-      : undefined,
-    description: homePage?.home?.heroSection?.overview ? homePage.home.heroSection.overview : undefined,
-    openGraph: {
-      images: ogImage ? [ogImage] : [],
-    },
-  }
+  const ogImage = urlForOpenGraphImage(settings?.ogImage)
+  // return {
+  //   title: homePage?.home?.heroSection?.title
+  //     ? {
+  //         template: `%s | ${homePage?.home?.heroSection?.title}`,
+  //         default: homePage?.home?.heroSection?.title || 'Personal website',
+  //       }
+  //     : undefined,
+  //   description: homePage?.home?.heroSection?.overview ? homePage.home.heroSection.overview : undefined,
+  //   openGraph: {
+  //     images: ogImage ? [ogImage] : [],
+  //   },
+  // }
+  return generateMetadataC({settings: settings, slug: '/'})
 }
 
 export const viewport: Viewport = {
@@ -45,12 +45,12 @@ export default async function IndexRoute({children}: {children: React.ReactNode}
   const {data} = await sanityFetch({query: settingsQuery})
   return (
     <>
-    {/* <head>
+      {/* <head>
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     </head> */}
-    <Navbar data={data} />
-    {children}
-    <Footer data={data || {}} />
+      <Navbar data={data} />
+      {children}
+      <Footer data={data || {}} />
       {/* <div className="flex min-h-screen flex-col bg-white text-black">
         <Navbar data={data} />
         <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">{children}</div>
@@ -69,7 +69,7 @@ export default async function IndexRoute({children}: {children: React.ReactNode}
           <IntroTemplate />
         </Suspense>
       </div> */}
-      <Toaster style={{padding:0}} />
+      <Toaster style={{padding: 0}} />
       <SanityLive onError={handleError} />
       {(await draftMode()).isEnabled && (
         <>

@@ -19,6 +19,7 @@ import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {presentationTool} from 'sanity/presentation'
 import {structureTool} from 'sanity/structure'
 import portfolioCategory from './sanity/schemas/documents/projectCategory'
+import { seoMetaFields } from "sanity-plugin-seo";
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Personal Website with Sanity.io'
@@ -59,5 +60,6 @@ export default defineConfig({
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({defaultApiVersion: apiVersion}),
+    seoMetaFields()
   ],
 })

@@ -29,7 +29,7 @@ import Portfolio from './Portfolio'
 export function HomePage({data, settingData}) {
   // Default to an empty object to allow previews on non-existent documents
   // const {overview = [], showcaseProjects = [], title = ''} = data ?? {}
-  console.log(data)
+  
   const {
     heroSection,
     aboutSection,
