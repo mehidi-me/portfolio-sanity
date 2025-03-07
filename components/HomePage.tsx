@@ -29,7 +29,7 @@ import Portfolio from './Portfolio'
 export function HomePage({data, settingData}) {
   // Default to an empty object to allow previews on non-existent documents
   // const {overview = [], showcaseProjects = [], title = ''} = data ?? {}
-  
+
   const {
     heroSection,
     aboutSection,
@@ -100,13 +100,13 @@ export function HomePage({data, settingData}) {
       })
     }
     animate()
-  }, []);
+  }, [])
 
   const formatDate = (isoString: string) => {
-    const date = new Date(isoString);
-    return date.toLocaleString("en-US", { year: "numeric", month: "long" });
-  };
-  
+    const date = new Date(isoString)
+    return date.toLocaleString('en-US', {year: 'numeric', month: 'long'})
+  }
+
   // return (
   //   <div className="space-y-20">
   //     {/* Header */}
@@ -147,7 +147,7 @@ export function HomePage({data, settingData}) {
   // )
   return (
     <div className="homePage">
-      <main id='home'>
+      <main id="home">
         <div className="container">
           <div className="content">
             <h1>{heroSection?.title}</h1>
@@ -208,10 +208,13 @@ export function HomePage({data, settingData}) {
               </div>
             </div>
             <div className="space-around">
-              <div className="video">
-                <img src={urlForImage(aboutSection?.about3.image)?.url()} alt="" />
-                <ArrowUpRight />
-              </div>
+              <a href={aboutSection?.about3?.videoLink} target="_blank" rel="noopener noreferrer">
+                <div className="video">
+                  <img src={urlForImage(aboutSection?.about3.image)?.url()} alt="" />
+                  <ArrowUpRight />
+                </div>
+              </a>
+
               <div className="list">
                 {aboutSection?.about3.keyPoints.map((keyPoint, index) => (
                   <div className="item" key={index}>
